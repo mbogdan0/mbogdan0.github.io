@@ -1,0 +1,17 @@
+{
+  "name": "mbogdan0-github-io",
+  "version": "1.0.0",
+  "description": "Minimal site built with Eleventy + Nunjucks + plain CSS",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "eleventy",
+    "serve": "eleventy --serve",
+    "clean": "rm -rf _site"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0",
+    "axe-core": "^4.12.1",
+    "html-minifier-terser": "^7.2.0"
+  }
+}

@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ title or site.name }}</title>
+    <meta name="description" content="{{ site.description }}" />
+    <meta name="theme-color" content="#f3e8cc" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#211c13" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%23f3e8cc'/%3E%3Ctext x='50' y='73' font-size='68' text-anchor='middle' font-family='Georgia,serif' font-weight='bold' fill='%23262219'%3EB%3C/text%3E%3C/svg%3E" />
+    <link rel="preload" href="/fonts/fraunces-latin-600.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/inter-latin-400.woff2" as="font" type="font/woff2" crossorigin />
+    <style>{{ inlineCss | safe }}</style>
+  </head>
+  <body>
+    {{ content | safe }}
+  </body>
+</html>

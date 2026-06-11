@@ -1,0 +1,26 @@
+---
+layout: base.njk
+---
+<header>
+  <h1>{{ site.name }}</h1>
+  <p class="tagline">{{ site.tagline }}</p>
+  <p class="status">{{ site.status | safe }}</p>
+  <p class="subline">{{ site.subline }}</p>
+</header>
+<main>
+  <section aria-labelledby="projects-heading">
+    <h2 id="projects-heading">{{ site.projectsHeading }}</h2>
+    <ul>
+      {%- for project in projects %}
+      <li>
+        <a href="{{ project.url }}">{{ project.name }}</a> — {{ project.blurb }}
+        (<a href="{{ project.source }}" aria-label="source code of {{ project.name }}">source</a>)
+      </li>
+      {%- endfor %}
+    </ul>
+  </section>
+  <p class="outro">{{ site.outro }}</p>
+</main>
+<footer id="contacts" tabindex="-1">
+  <p><a href="{{ site.github }}" rel="me">GitHub</a> · <a href="{{ site.linkedin }}" rel="me">LinkedIn</a> · <a href="{{ site.telegram }}" rel="me">Telegram</a> · <a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
+</footer>

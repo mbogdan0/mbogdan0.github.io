@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Simple Pomodoro",
+    "url": "https://mbogdan0.github.io/simple-pomodoro/",
+    "source": "https://github.com/mbogdan0/simple-pomodoro",
+    "blurb": "a Pomodoro timer that lives in a browser tab; I went looking for a good one and ended up building my own"
+  },
+  {
+    "name": "SLIP-0039 Shamir Secret",
+    "url": "https://mbogdan0.github.io/shamir-secret/",
+    "source": "https://github.com/mbogdan0/shamir-secret",
+    "blurb": "splits secrets the SLIP-0039 way — built for myself, because trusting a single backup felt too relaxing"
+  },
+  {
+    "name": "Animated 2D Portfolio",
+    "url": "https://mbogdan0.github.io/yuliia-nerubenko/",
+    "source": "https://github.com/mbogdan0/yuliia-nerubenko",
+    "blurb": "made for my wife, who's recently taken up 2D animation — her Spine characters rendered live with PixiJS"
+  },
+  {
+    "name": "Trust Wallet Backup Decryptor",
+    "url": "https://mbogdan0.github.io/trust-wallet-backup-decryptor/",
+    "source": "https://github.com/mbogdan0/trust-wallet-backup-decryptor",
+    "blurb": "decrypts encrypted Trust Wallet backups locally in the browser"
+  }
+]

@@ -12,6 +12,12 @@
     "blurb": "splits secrets the SLIP-0039 way — built for myself, because trusting a single backup felt too relaxing"
   },
   {
+    "name": "Steps Trends",
+    "url": "https://mbogdan0.github.io/steps-trends/",
+    "source": "https://github.com/mbogdan0/steps-trends",
+    "blurb": "tracks my walking trends — built for myself because I love walking and wanted the numbers to keep nudging me outside"
+  },
+  {
     "name": "Animated 2D Portfolio",
     "url": "https://mbogdan0.github.io/yuliia-nerubenko/",
     "source": "https://github.com/mbogdan0/yuliia-nerubenko",

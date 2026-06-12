@@ -22,5 +22,11 @@
     "url": "https://mbogdan0.github.io/trust-wallet-backup-decryptor/",
     "source": "https://github.com/mbogdan0/trust-wallet-backup-decryptor",
     "blurb": "decrypts encrypted Trust Wallet backups locally in the browser"
+  },
+  {
+    "name": "This Very Site",
+    "url": "https://mbogdan0.github.io/",
+    "source": "https://github.com/mbogdan0/mbogdan0.github.io",
+    "blurb": "yes, the page you're reading right now — assembled in a few prompts, yet with soul, semantic HTML, and AA+ accessibility"
   }
 ]

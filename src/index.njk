@@ -3,8 +3,9 @@ layout: base.njk
 ---
 <header>
   <h1>{{ site.name }}</h1>
+  <p class="links"><a href="{{ site.github }}" rel="me">GitHub</a> · <a href="{{ site.linkedin }}" rel="me">LinkedIn</a> · <a href="{{ site.telegram }}" rel="me">Telegram</a> · <a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
   <p class="tagline">{{ site.tagline }}</p>
-  <p class="status">{{ site.status | safe }}</p>
+  <p class="status">{{ site.status }}</p>
   <p class="subline">{{ site.subline }}</p>
 </header>
 <main>
@@ -21,6 +22,3 @@ layout: base.njk
   </section>
   <p class="outro">{{ site.outro }}</p>
 </main>
-<footer id="contacts" tabindex="-1">
-  <p><a href="{{ site.github }}" rel="me">GitHub</a> · <a href="{{ site.linkedin }}" rel="me">LinkedIn</a> · <a href="{{ site.telegram }}" rel="me">Telegram</a> · <a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
-</footer>

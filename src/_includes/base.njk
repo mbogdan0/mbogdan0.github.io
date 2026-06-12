@@ -5,14 +5,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{{ title or site.name }}</title>
     <meta name="description" content="{{ site.description }}" />
-    <meta name="theme-color" content="#f3e8cc" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#f7eed9" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#211c13" media="(prefers-color-scheme: dark)" />
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%23f3e8cc'/%3E%3Ctext x='50' y='73' font-size='68' text-anchor='middle' font-family='Georgia,serif' font-weight='bold' fill='%23262219'%3EB%3C/text%3E%3C/svg%3E" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%23f7eed9'/%3E%3Ctext x='50' y='73' font-size='68' text-anchor='middle' font-family='Georgia,serif' font-weight='bold' fill='%23262219'%3EB%3C/text%3E%3C/svg%3E" />
     <link rel="preload" href="/fonts/fraunces-latin-600.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/inter-latin-400.woff2" as="font" type="font/woff2" crossorigin />
+    <script>
+      /* Apply the saved theme override before first paint to avoid a flash */
+      try {
+        const t = localStorage.theme;
+        if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+      } catch (e) {}
+    </script>
     <style>{{ inlineCss | safe }}</style>
   </head>
   <body>
+    <button type="button" id="theme-toggle" class="theme-toggle" aria-pressed="false" hidden>
+      <span class="visually-hidden">Dark theme</span>
+      <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <g class="icon-sun">
+          <circle cx="12" cy="12" r="4" />
+          <path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+        </g>
+        <path class="icon-moon" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+      </svg>
+    </button>
     {{ content | safe }}
+    <script>
+      (function () {
+        const btn = document.getElementById("theme-toggle");
+        const media = matchMedia("(prefers-color-scheme: dark)");
+        const metas = document.querySelectorAll('meta[name="theme-color"]');
+        const paper = { light: "#f7eed9", dark: "#211c13" };
+        let override;
+        try {
+          const t = localStorage.theme;
+          if (t === "light" || t === "dark") override = t;
+        } catch (e) {}
+
+        function system() {
+          return media.matches ? "dark" : "light";
+        }
+
+        function render() {
+          const theme = override || system();
+          if (override) document.documentElement.dataset.theme = override;
+          else delete document.documentElement.dataset.theme;
+          btn.setAttribute("aria-pressed", theme === "dark");
+          metas.forEach(function (m) {
+            m.content = override ? paper[override] : paper[m.media.indexOf("dark") < 0 ? "light" : "dark"];
+          });
+        }
+
+        btn.addEventListener("click", function () {
+          const next = (override || system()) === "dark" ? "light" : "dark";
+          /* A choice matching the system preference clears the override,
+             so the page keeps following the OS setting */
+          override = next === system() ? undefined : next;
+          try {
+            if (override) localStorage.theme = override;
+            else localStorage.removeItem("theme");
+          } catch (e) {}
+          render();
+        });
+
+        media.addEventListener("change", render);
+        render();
+        btn.hidden = false;
+      })();
+    </script>
   </body>
 </html>

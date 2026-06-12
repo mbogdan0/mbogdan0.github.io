@@ -3,7 +3,7 @@
   src: url("/fonts/fraunces-latin-600.woff2") format("woff2");
   font-weight: 600;
   font-style: normal;
-  font-display: swap;
+  font-display: optional;
 }
 
 @font-face {
@@ -11,31 +11,69 @@
   src: url("/fonts/inter-latin-400.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
-  font-display: swap;
+  font-display: optional;
 }
 
 :root {
-  color-scheme: light;
-  /* Aged paper, warm ink; link colors stay canonical browser blue/purple.
-     All combinations meet WCAG AAA contrast on the paper background. */
+  /* Follows the browser preference unless the toggle sets data-theme.
+     Colors are explicit per theme (not light-dark()): Chromium fails to
+     transition colors resolved through light-dark(), and the theme switch
+     is animated. The dark palette lives in --*-d variables so the two dark
+     blocks below (manual override / system preference) stay one-liners. */
+  color-scheme: light dark;
+  /* Light: aged paper, warm ink; link colors stay canonical browser blue/purple.
+     Dark: the same paper after dark — warm near-black, cream ink, links in the
+     pale blue/lilac of browser dark themes.
+     All combinations meet WCAG AAA contrast on their paper background. */
   --paper: #f7eed9;
   --ink: #262219;
   --ink-soft: #4d4636;
   --link: #0000ee;
   --visited: #551a8b;
+  --selection: #e3d09c;
+  --paper-d: #211c13;
+  --ink-d: #ece2c8;
+  --ink-soft-d: #c2b698;
+  --link-d: #9db8ff;
+  --visited-d: #cda6ee;
+  --selection-d: #4a3f23;
+  /* Photoshop-style monochrome grain: a tiny tiling SVG turbulence texture.
+     Faint black noise on light paper, faint white noise on dark. */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.12 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  --grain-d: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.07 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  /* Toggle icon: sun while light is active, moon while dark is active */
+  --icon-sun: inline;
+  --icon-moon: none;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: var(--paper-d);
+  --ink: var(--ink-d);
+  --ink-soft: var(--ink-soft-d);
+  --link: var(--link-d);
+  --visited: var(--visited-d);
+  --selection: var(--selection-d);
+  --grain: var(--grain-d);
+  --icon-sun: none;
+  --icon-moon: inline;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    color-scheme: dark;
-    /* The same aged paper after dark: warm near-black, cream ink.
-       Links shift to the pale blue/lilac of browser dark themes.
-       All combinations meet WCAG AAA contrast on the dark paper. */
-    --paper: #211c13;
-    --ink: #ece2c8;
-    --ink-soft: #c2b698;
-    --link: #9db8ff;
-    --visited: #cda6ee;
+  :root:not([data-theme="light"]) {
+    --paper: var(--paper-d);
+    --ink: var(--ink-d);
+    --ink-soft: var(--ink-soft-d);
+    --link: var(--link-d);
+    --visited: var(--visited-d);
+    --selection: var(--selection-d);
+    --grain: var(--grain-d);
+    --icon-sun: none;
+    --icon-moon: inline;
   }
 }
 
@@ -49,40 +87,24 @@
   margin: 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  html {
-    scroll-behavior: smooth;
-  }
-}
-
 body {
   background-color: var(--paper);
-  /* Photoshop-style monochrome grain: a tiny tiling SVG turbulence texture */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.12 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-image: var(--grain);
   color: var(--ink);
   font-family: "Inter", system-ui, sans-serif;
   font-size: clamp(1.2rem, 1.05rem + 0.7vw, 1.45rem);
   line-height: 1.6;
+  /* Soften the theme switch; children inherit the animated color.
+     Scoped to colors only so hover/focus feedback stays instant. */
+  transition: background-color 0.25s, color 0.25s;
 }
 
 ::selection {
-  background: #e3d09c;
-}
-
-@media (prefers-color-scheme: dark) {
-  body {
-    /* Same grain, flipped: faint white noise so the texture reads on dark paper */
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.07 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
-
-  ::selection {
-    background: #4a3f23;
-  }
+  background: var(--selection);
 }
 
 header,
-main,
-footer {
+main {
   max-width: 39.6rem;
   margin-inline: auto;
   padding-inline: clamp(1.25rem, 5vw, 2rem);
@@ -92,24 +114,24 @@ header {
   padding-block-start: clamp(4rem, 14vh, 8rem);
 }
 
-footer {
-  margin-block-start: clamp(3rem, 9vh, 4rem);
+main {
   padding-block-end: clamp(4rem, 14vh, 8rem);
-}
-
-/* Focus target for the in-page "the links at the bottom" anchor;
-   the container itself needs no visible ring — its links carry focus next */
-footer:focus {
-  outline: none;
 }
 
 h1 {
   font-family: "Fraunces", Georgia, serif;
   font-weight: 600;
-  font-size: clamp(2.875rem, 1.75rem + 7vw, 5.75rem);
+  /* The second min() term keeps the longest unbreakable word ("Melnichenko",
+     ~5.9em wide) inside the padded column; it only wins below ~355px viewports,
+     so larger screens keep the original clamp() size exactly. */
+  font-size: min(clamp(2.875rem, 1.75rem + 7vw, 5.75rem), 17vw - 0.47rem);
   line-height: 1.02;
   letter-spacing: -0.015em;
   text-wrap: balance;
+  margin-block-end: 1rem;
+}
+
+.links {
   margin-block-end: 2rem;
 }
 
@@ -118,10 +140,10 @@ h1 {
   text-wrap: pretty;
 }
 
+.links,
 .status,
 .subline,
-.outro,
-footer {
+.outro {
   font-size: 0.9em;
   color: var(--ink-soft);
   text-wrap: pretty;
@@ -152,6 +174,8 @@ a {
   color: var(--link);
   text-decoration-thickness: 0.06em;
   text-underline-offset: 0.18em;
+  /* Links set their own color, so they fade along with the body */
+  transition: color 0.25s;
 }
 
 a:visited {
@@ -162,9 +186,64 @@ a:hover {
   text-decoration-thickness: 0.13em;
 }
 
-a:focus-visible {
+a:focus-visible,
+.theme-toggle:focus-visible {
   outline: 3px solid var(--ink);
   outline-offset: 3px;
+}
+
+.theme-toggle {
+  position: absolute;
+  inset-block-start: 0.75rem;
+  inset-inline-end: 0.75rem;
+  /* 44px hit target (WCAG 2.5.5 AAA) around a 22px icon */
+  inline-size: 44px;
+  block-size: 44px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: 50%;
+  color: var(--ink);
+  cursor: pointer;
+  transition: color 0.25s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body,
+  a,
+  .theme-toggle {
+    transition: none;
+  }
+}
+
+.theme-toggle:hover {
+  background: color-mix(in srgb, var(--ink) 12%, transparent);
+}
+
+.icon-sun {
+  display: var(--icon-sun);
+}
+
+.icon-moon {
+  display: var(--icon-moon);
+}
+
+@media print {
+  .theme-toggle {
+    display: none;
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 ul {

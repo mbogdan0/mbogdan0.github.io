@@ -12,6 +12,11 @@
     "blurb": "splits secrets the SLIP-0039 way — built for myself, because trusting a single backup felt too relaxing"
   },
   {
+    "name": "Claude Quotalis",
+    "source": "https://github.com/mbogdan0/claude-quotalis",
+    "blurb": "a browser extension that tracks your Claude usage quota — built for myself, kept minimal, and speaks several languages"
+  },
+  {
     "name": "Local Notes",
     "url": "https://mbogdan0.github.io/local-notes/",
     "source": "https://github.com/mbogdan0/local-notes",
@@ -34,11 +39,6 @@
     "url": "https://mbogdan0.github.io/trust-wallet-backup-decryptor/",
     "source": "https://github.com/mbogdan0/trust-wallet-backup-decryptor",
     "blurb": "decrypts encrypted Trust Wallet backups locally in the browser"
-  },
-  {
-    "name": "Claude Quotalis",
-    "source": "https://github.com/mbogdan0/claude-quotalis",
-    "blurb": "a browser extension that tracks your Claude usage quota — built for myself, kept minimal, and speaks several languages"
   },
   {
     "name": "This Very Site",

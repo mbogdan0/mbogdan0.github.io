@@ -3,7 +3,7 @@
   "configurations": [
     {
       "name": "eleventy",
-      "runtimeExecutable": "/Users/bogdan/.nvm/versions/node/v22.19.0/bin/node",
+      "runtimeExecutable": "node",
       "runtimeArgs": ["node_modules/@11ty/eleventy/cmd.cjs", "--serve", "--port", "8087"],
       "port": 8087
     }

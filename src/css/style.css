@@ -15,16 +15,7 @@
 }
 
 :root {
-  /* Follows the browser preference unless the toggle sets data-theme.
-     Colors are explicit per theme (not light-dark()): Chromium fails to
-     transition colors resolved through light-dark(), and the theme switch
-     is animated. The dark palette lives in --*-d variables so the two dark
-     blocks below (manual override / system preference) stay one-liners. */
   color-scheme: light dark;
-  /* Light: aged paper, warm ink; link colors stay canonical browser blue/purple.
-     Dark: the same paper after dark — warm near-black, cream ink, links in the
-     pale blue/lilac of browser dark themes.
-     All combinations meet WCAG AAA contrast on their paper background. */
   --paper: #f7eed9;
   --ink: #262219;
   --ink-soft: #4d4636;
@@ -37,11 +28,8 @@
   --link-d: #9db8ff;
   --visited-d: #cda6ee;
   --selection-d: #4a3f23;
-  /* Photoshop-style monochrome grain: a tiny tiling SVG turbulence texture.
-     Faint black noise on light paper, faint white noise on dark. */
   --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.12 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
   --grain-d: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.07 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
-  /* Toggle icon: sun while light is active, moon while dark is active */
   --icon-sun: inline;
   --icon-moon: none;
 }
@@ -87,6 +75,10 @@
   margin: 0;
 }
 
+html {
+  overflow-x: clip;
+}
+
 body {
   background-color: var(--paper);
   background-image: var(--grain);
@@ -94,9 +86,15 @@ body {
   font-family: "Inter", system-ui, sans-serif;
   font-size: clamp(1.2rem, 1.05rem + 0.7vw, 1.45rem);
   line-height: 1.6;
-  /* Soften the theme switch; children inherit the animated color.
-     Scoped to colors only so hover/focus feedback stays instant. */
+  overflow-x: clip;
   transition: background-color 0.25s, color 0.25s;
+}
+
+@supports not (overflow: clip) {
+  html,
+  body {
+    overflow-x: hidden;
+  }
 }
 
 ::selection {
@@ -121,13 +119,11 @@ main {
 h1 {
   font-family: "Fraunces", Georgia, serif;
   font-weight: 600;
-  /* The second min() term keeps the longest unbreakable word ("Melnichenko",
-     ~5.9em wide) inside the padded column; it only wins below ~355px viewports,
-     so larger screens keep the original clamp() size exactly. */
-  font-size: min(clamp(2.875rem, 1.75rem + 7vw, 5.75rem), 17vw - 0.47rem);
+  font-size: min(clamp(2.875rem, 1.75rem + 7vw, 5.75rem), calc(15.75vw - 0.43rem));
   line-height: 1.02;
   letter-spacing: -0.015em;
   text-wrap: balance;
+  overflow-wrap: anywhere;
   margin-block-end: 1rem;
 }
 
@@ -174,7 +170,6 @@ a {
   color: var(--link);
   text-decoration-thickness: 0.06em;
   text-underline-offset: 0.18em;
-  /* Links set their own color, so they fade along with the body */
   transition: color 0.25s;
 }
 
@@ -196,7 +191,6 @@ a:focus-visible,
   position: absolute;
   inset-block-start: 0.75rem;
   inset-inline-end: 0.75rem;
-  /* 44px hit target (WCAG 2.5.5 AAA) around a 22px icon */
   inline-size: 44px;
   block-size: 44px;
   display: grid;

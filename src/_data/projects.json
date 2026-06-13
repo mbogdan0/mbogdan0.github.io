@@ -36,6 +36,11 @@
     "blurb": "decrypts encrypted Trust Wallet backups locally in the browser"
   },
   {
+    "name": "Claude Quotalis",
+    "source": "https://github.com/mbogdan0/claude-quotalis",
+    "blurb": "a browser extension that tracks your Claude usage quota — built for myself, kept minimal, and speaks several languages"
+  },
+  {
     "name": "This Very Site",
     "url": "https://mbogdan0.github.io/",
     "source": "https://github.com/mbogdan0/mbogdan0.github.io",

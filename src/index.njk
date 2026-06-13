@@ -14,8 +14,12 @@ layout: base.njk
     <ul>
       {%- for project in projects %}
       <li>
+        {%- if project.url %}
         <a href="{{ project.url }}">{{ project.name }}</a> — {{ project.blurb }}
         (<a href="{{ project.source }}" aria-label="source code of {{ project.name }}">source</a>)
+        {%- else %}
+        <a href="{{ project.source }}">{{ project.name }}</a> — {{ project.blurb }}
+        {%- endif %}
       </li>
       {%- endfor %}
     </ul>

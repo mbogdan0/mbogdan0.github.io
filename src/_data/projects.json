@@ -12,6 +12,12 @@
     "blurb": "splits secrets the SLIP-0039 way — built for myself, because trusting a single backup felt too relaxing"
   },
   {
+    "name": "Local Notes",
+    "url": "https://mbogdan0.github.io/local-notes/",
+    "source": "https://github.com/mbogdan0/local-notes",
+    "blurb": "a large, calm, off-white box to dump thoughts into — built for myself because every other notes app felt too busy; everything stays local in the browser"
+  },
+  {
     "name": "Steps Trends",
     "url": "https://mbogdan0.github.io/steps-trends/",
     "source": "https://github.com/mbogdan0/steps-trends",

@@ -13,6 +13,7 @@
   },
   {
     "name": "Claude Quotalis",
+    "url": "https://chromewebstore.google.com/detail/quotalis-for-claude/kkdgbehkcpfhfeleeghhcembkncacopi",
     "source": "https://github.com/mbogdan0/claude-quotalis",
     "blurb": "a browser extension that tracks your Claude usage quota — built for myself, kept minimal, and speaks several languages"
   },
